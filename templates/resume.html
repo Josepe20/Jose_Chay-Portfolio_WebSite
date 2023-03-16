@@ -1,26 +1,9 @@
-  <!-- ======= Head, Header & Menu 'nav' ======= -->
-{% include "header.html" %}
-
-  <main id="main">
-
 <!-- ======= Resume Section ======= -->
     <section id="resume" class="resume">
       <div class="container">
 
         <div class="section-title">
           <h2>Resume</h2>
-          <p>
-            I've got a huge passion for solving
-            issues, that's how I found
-            software development as a way to
-            create solutions. 🤓
-          </p>
-          <p>
-            I am looking for challenges that
-            challenge me and a group of people who
-            seek improving themselves every day. 👀
-          </p>
-          <br>
           <p>
             Here you can download my resume/CV as pdf
             <a href="{{ url_for('download_resume') }}"><button type="submit">CV Jose Chay</button></a>
@@ -81,11 +64,3 @@
 
       </div>
     </section><!-- End Resume Section -->
-
-    <!-- ======= Contact Section ======= -->
-    {% include "contact.html" %}
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-{% include "footer.html" %}

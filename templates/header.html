@@ -56,16 +56,31 @@
           <a href="https://www.linkedin.com/in/jose-chay-a59873242/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
         </div>
       </div>
+      {% if is_home:%}
+        <nav id="navbar" class="nav-menu navbar">
+          <ul>
+            <li><a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+            <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+            <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+            <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+  <!--          <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>-->
+            <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+          </ul>
+        </nav> <!-- .nav-menu -->
 
-      <nav id="navbar" class="nav-menu navbar">
-        <ul>
-          <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-          <li><a href="{{ url_for('about_page') }}" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
-          <li><a href="{{ url_for('resume_page') }}" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-          <li><a href="{{ url_for('portfolio_page') }}" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
-          <li><a href="{{ url_for('services_page') }}" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-          <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-        </ul>
-      </nav> <!-- .nav-menu -->
+      {% else: %}
+        <nav id="navbar" class="nav-menu navbar">
+            <ul>
+              <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+              <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
+              <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+              <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
+    <!--          <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>-->
+              <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+            </ul>
+          </nav> <!-- .nav-menu -->
+      {% endif %}
+
     </div>
   </header> <!-- End Header -->
+
