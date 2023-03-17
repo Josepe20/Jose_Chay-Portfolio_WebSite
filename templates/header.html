@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>iPortfolio Bootstrap Template - Index</title>
+  <title>Jose Chay</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -48,10 +48,11 @@
       <div class="profile">
         <img src="static/assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
 
-        {% if logged_in: %}
-            <h1 class="text-light"><a href="{{ url_for('home_page') }}">Admin Chay</a></h1>
-        {% else: %}
+        {% if not current_user.is_authenticated: %}
             <h1 class="text-light"><a href="{{ url_for('home_page') }}">Jose Chay</a></h1>
+
+        {% else: %}
+            <h1 class="text-light"><a href="{{ url_for('home_page') }}">Admin Chay</a></h1>
         {% endif %}
 
         <div class="social-links mt-3 text-center">
@@ -65,12 +66,18 @@
       {% if is_home:%}
         <nav id="navbar" class="nav-menu navbar">
           <ul>
-            <li><a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+            <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
             <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
             <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
             <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
   <!--          <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>-->
-            <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+            <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a>
+
+            {% if current_user.is_authenticated: %}
+                </li><li><a href="{{ url_for('new_project_page') }}" class="nav-link scrollto"><i class="bi bi-plus-circle"></i> <span>Create Project</span></a></li>
+                </li><li><a href="{{ url_for('logout') }}" class="nav-link scrollto"><i class="bx bi-power"></i> <span>Log Out</span></a></li>
+            {% endif %}
+
           </ul>
         </nav> <!-- .nav-menu -->
 
@@ -83,6 +90,12 @@
               <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li>
     <!--          <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>-->
               <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
+
+              {% if current_user.is_authenticated: %}
+                </li><li><a href="{{ url_for('new_project_page') }}" class="nav-link scrollto"><i class="bi bi-plus-circle"></i> <span>Create Project</span></a></li>
+                </li><li><a href="{{ url_for('logout') }}" class="nav-link scrollto"><i class="bi bi-power"></i> <span>Log Out</span></a></li>
+              {% endif %}
+
             </ul>
           </nav> <!-- .nav-menu -->
       {% endif %}

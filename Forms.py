@@ -1,16 +1,29 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, EmailField, PasswordField
+from wtforms import StringField, SubmitField, EmailField, PasswordField, SelectField
 from wtforms.validators import DataRequired, URL, Email
 from flask_ckeditor import CKEditorField
 
 # WTForm
+# class CreateProjectForm(FlaskForm):
+#     title = StringField("Project Post Title", validators=[DataRequired()])
+#     subtitle = StringField("Subtitle", validators=[DataRequired()])
+#     author = StringField("Author/ Author's Name", validators=[DataRequired()])
+#     img_url = StringField("Project Image URL", validators=[DataRequired(), URL()])
+#     body = CKEditorField("Project Description", validators=[DataRequired()])
+#     submit = SubmitField("Submit")
+
 class CreateProjectForm(FlaskForm):
-    title = StringField("Blog Post Title", validators=[DataRequired()])
-    subtitle = StringField("Subtitle", validators=[DataRequired()])
-    author = StringField("Your Name", validators=[DataRequired()])
-    img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    body = CKEditorField("Blog Content", validators=[DataRequired()])
-    submit = SubmitField("Submit Post")
+    title = StringField("Title", validators=[DataRequired()])
+    category = SelectField(label='Coffees Rating',
+                           choices=[('Web', 'Web Development'), ('Data', 'Data Science'), ('Auto', 'Automatization'), ('GUIGame', 'GUI/Game'), ('Script', 'Scripting')],
+                           validators=[DataRequired()])
+    client = StringField("Client", validators=[DataRequired()])
+    author = StringField("Authors", validators=[DataRequired()])
+    date = StringField("Date, e.g (01 March, 2023)", validators=[DataRequired()])
+    project_url = StringField("Project URL", validators=[DataRequired(), URL()])
+    img_url = StringField("Image URL", validators=[DataRequired(), URL()])
+    description = CKEditorField("Description", validators=[DataRequired()])
+    submit = SubmitField("Submit")
 
 #
 # # WTForm Sing UP

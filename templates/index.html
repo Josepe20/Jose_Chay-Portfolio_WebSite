@@ -5,10 +5,10 @@
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
 
-      {% if logged_in: %}
-        <h1>Admin Chay</h1>
-      {% else: %}
+      {% if not current_user.is_authenticated: %}
         <h1>Jose Chay</h1>
+      {% else: %}
+        <h1>Admin Chay</h1>
       {% endif %}
 
       <p>I'm <span class="typed" data-typed-items="Freelancer, Backend Developer, Data Scientist, Blogger"></span></p>
