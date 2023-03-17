@@ -13,12 +13,18 @@ class CreateProjectForm(FlaskForm):
     submit = SubmitField("Submit Post")
 
 #
+# # WTForm Sing UP
+# class UserForm(FlaskForm):
+#     Name = StringField("Name", validators=[DataRequired()])
+#     Email = EmailField("Email", validators=[DataRequired(), Email()])
+#     Password = PasswordField('Password', validators=[DataRequired()])
+#     submit = SubmitField("Sing Up")
+
 # WTForm
 class UserForm(FlaskForm):
     Name = StringField("Name", validators=[DataRequired()])
     Email = EmailField("Email", validators=[DataRequired(), Email()])
     Password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField("Sing Up")
-
+    submit = SubmitField("Log In")
 
 
