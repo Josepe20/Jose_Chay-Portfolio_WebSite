@@ -1,4 +1,4 @@
-  <!-- ======= Head, Header & Menu 'nav' ======= -->
+<!-- ======= Head, Header & Menu 'nav' ======= -->
 {% include "header.html" %}
 
   <main id="main">
@@ -8,10 +8,10 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Portfolio Details</h2>
+          <h2>{{ project.title }} Details</h2>
           <ol>
             <li><a href="{{ url_for('home_page') }}">Home</a></li>
-            <li>Portfolio Details</li>
+            <li>{{ project.title }} Details</li>
           </ol>
         </div>
 
@@ -28,17 +28,23 @@
             <div class="portfolio-details-slider swiper">
               <div class="swiper-wrapper align-items-center">
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-1.jpg" alt="">
-                </div>
+                {% if project.img_url_1:  %}
+                  <div class="swiper-slide">
+                    <img src="{{ project.img_url_1 }}" alt="">
+                  </div>
+                {% endif %}
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-2.jpg" alt="">
-                </div>
+                {% if project.img_url_2:  %}
+                  <div class="swiper-slide">
+                    <img src="{{ project.img_url_2 }}" alt="">
+                  </div>
+                {% endif %}
 
-                <div class="swiper-slide">
-                  <img src="assets/img/portfolio/portfolio-details-3.jpg" alt="">
-                </div>
+                {% if project.img_url_3:  %}
+                  <div class="swiper-slide">
+                    <img src="{{ project.img_url_3 }}" alt="">
+                  </div>
+                {% endif %}
 
               </div>
               <div class="swiper-pagination"></div>
@@ -49,17 +55,18 @@
             <div class="portfolio-info">
               <h3>Project information</h3>
               <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Authors</strong>: Someone</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                <li><strong>Title</strong>: {{ project.title }}</li>
+                <li><strong>Category</strong>: {{ project.category }}</li>
+                <li><strong>Client</strong>: {{ project.client }}</li>
+                <li><strong>Authors</strong>: {{ project.author}}</li>
+                <li><strong>Project date</strong>: {{ project.date }}</li>
+                <li><strong>Project URL</strong>: <a href="{{ project.project_url}}">{{ project.title }}</a></li>
               </ul>
             </div>
             <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
+              <h2>Project Description</h2>
               <p>
-                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+                {{ project.description | safe }}
               </p>
             </div>
           </div>

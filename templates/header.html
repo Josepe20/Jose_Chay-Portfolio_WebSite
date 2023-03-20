@@ -74,7 +74,7 @@
             <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a>
 
             {% if current_user.is_authenticated: %}
-                </li><li><a href="{{ url_for('new_project_page') }}" class="nav-link scrollto"><i class="bi bi-plus-circle"></i> <span>Create Project</span></a></li>
+                </li><li><a href="{{ url_for('create_project_page') }}" class="nav-link scrollto"><i class="bi bi-plus-circle"></i> <span>Create Project</span></a></li>
                 </li><li><a href="{{ url_for('logout') }}" class="nav-link scrollto"><i class="bx bi-power"></i> <span>Log Out</span></a></li>
             {% endif %}
 
@@ -92,7 +92,7 @@
               <li><a href="{{ url_for('home_page') }}" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
 
               {% if current_user.is_authenticated: %}
-                </li><li><a href="{{ url_for('new_project_page') }}" class="nav-link scrollto"><i class="bi bi-plus-circle"></i> <span>Create Project</span></a></li>
+                </li><li><a href="{{ url_for('create_project_page') }}" class="nav-link scrollto"><i class="bi bi-plus-circle"></i> <span>Create Project</span></a></li>
                 </li><li><a href="{{ url_for('logout') }}" class="nav-link scrollto"><i class="bi bi-power"></i> <span>Log Out</span></a></li>
               {% endif %}
 

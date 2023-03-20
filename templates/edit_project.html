@@ -1,0 +1,36 @@
+{% import "bootstrap/wtf.html" as wtf%} <!--- Import Forms from WTForms --->
+
+<!-- ======= Head, Header & Menu 'nav' ======= -->
+{% include "header.html" %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h1>Edit Project</h1>
+          <ol>
+            <li><a href="{{ url_for('home_page') }}">Home</a></li>
+            <li>Edit Project</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <section class="inner-page">
+      <div class="container">
+
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='description') }}
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+{% include "footer.html" %}

@@ -50,7 +50,9 @@ class Project(db.Model):
     author = db.Column(db.String(250), nullable=False)
     date = db.Column(db.String(250), nullable=False)
     project_url = db.Column(db.String(1000), nullable=False)
-    img_url = db.Column(db.String(1000), nullable=False)
+    img_url_1 = db.Column(db.String(1000), nullable=False)
+    img_url_2 = db.Column(db.String(1000), nullable=True)
+    img_url_3 = db.Column(db.String(1000), nullable=True)
     description = db.Column(db.Text, nullable=False)
 
 
@@ -83,7 +85,8 @@ def login_admin(name, email, password):
             if check_password_hash(user.password, password):
                 login_user(user)
 
-def create_project(title, category, client, author, date, project_url, img_url, description,):
+def create_project(title, category, client, author, date, project_url,
+                   img_url_1, img_url_2, img_url_3, description,):
 
     new_project = Project(
         title=title,
@@ -92,10 +95,28 @@ def create_project(title, category, client, author, date, project_url, img_url, 
         author=author,
         date=date,
         project_url=project_url,
-        img_url=img_url,
+        img_url_1=img_url_1,
+        img_url_2=img_url_2,
+        img_url_3=img_url_3,
         description=description
     )
 
     db.session.add(new_project)
     db.session.commit()
+
+def edit_project(project_to_edit, edit_project_form):
+
+    project_to_edit.title = edit_project_form.title.data,
+    project_to_edit.category = edit_project_form.category.data,
+    project_to_edit.client = edit_project_form.client.data,
+    project_to_edit.author = edit_project_form.author.data,
+    project_to_edit.date = edit_project_form.date.data,
+    project_to_edit.project_url = edit_project_form.project_url.data,
+    project_to_edit.img_url_1 = edit_project_form.img_url_1.data,
+    project_to_edit.img_url_2 = edit_project_form.img_url_2.data,
+    project_to_edit.img_url_3 = edit_project_form.img_url_3.data,
+    project_to_edit.description = edit_project_form.description.data
+
+    db.session.commit()
+
 

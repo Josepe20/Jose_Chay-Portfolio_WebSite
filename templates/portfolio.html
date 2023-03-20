@@ -12,7 +12,7 @@
             <ul id="portfolio-flters">
               <li data-filter="*" class="filter-active">All</li>
               <li data-filter=".filter-Web">Web</li>
-              <li data-filter=".filter-Data">Data</li>
+              <li data-filter=".filter-Data">Data Science</li>
               <li data-filter=".filter-Auto">Automatization</li>
               <li data-filter=".filter-GUIGame">GUI/Game</li>
               <li data-filter=".filter-Script">Scripting</li>
@@ -25,11 +25,19 @@
           {% for project in projects: %}
             <div class="col-lg-4 col-md-6 portfolio-item filter-{{project.category}}">
               <div class="portfolio-wrap">
-                <img src="{{ project.img_url }}" class="img-fluid" alt="">
+                <img src="{{ project.img_url_1 }}" class="img-fluid" alt="">
                 <div class="portfolio-links">
-                  <a href="{{ project.img_url }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ project.title }}"><i class="bx bx-plus"></i></a>
-                  <a href="{{url_for('project_details_page')}}" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
+                  {% if not current_user.is_authenticated: %}
+                     <a href="{{url_for('project_details_page',  project_id=project.id)}}" title="More Details"><i class="bi bi-info-circle"></i></a>
+
+                  {% else: %}
+<!--                      <a href="{{ url_for('create_project_page') }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ project.title }}"><i class="bi bi-pencil-square"></i></a>-->
+                    <a href="{{url_for('edit_project_page', project_id=project.id)}}" title="Edit Project"><i class="bi bi-pencil-square"></i></a>
+                    <a href="{{url_for('project_details_page',  project_id=project.id)}}" title="More Details"><i class="bi bi-info-circle"></i></a>
+                    <a href="{{url_for('project_details_page',  project_id=project.id)}}" title="More Details"><i class="bi bi-trash"></i></a>
+
+                  {% endif %}
+                  </div>
               </div>
             </div>
           {% endfor %}
