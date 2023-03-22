@@ -1,1 +1,1 @@
-web: gunicorn BaseDatos:app
+web:gunicorn BaseDatos.py
