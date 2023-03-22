@@ -1,2 +1,2 @@
-web:gunicorn BaseDatos.py
-heroku ps:scale web=1
+web: gunicorn BaseDatos.py
+
