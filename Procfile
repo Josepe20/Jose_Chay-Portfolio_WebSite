@@ -1,2 +1,2 @@
-web: gunicorn BaseDatos.wsgi --log-file -
+web: gunicorn BaseDatos:app
 
