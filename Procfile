@@ -1,2 +1,2 @@
-web: python BaseDatos.py
+web: gunicorn BaseDatos.wsgi --log-file -
 
