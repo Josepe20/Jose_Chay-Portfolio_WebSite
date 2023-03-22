@@ -8,12 +8,12 @@ from BaseDatos import create_admin, login_admin, admin_only, create_project, Pro
 from BaseDatos import USER_EMAIL, PASSWORD_EMAIL
 import datetime
 
-# with app.app_context():
-#     db.drop_all()
-#     db.create_all()
+## with app.app_context():
+##    db.drop_all()
+##     db.create_all()
 
-# with app.app_context():
-#     db.create_all()
+## with app.app_context():
+##     db.create_all()
 
 ## Routes
 @app.route('/')
@@ -69,14 +69,14 @@ def get_contact():
 
 @app.route('/download')
 def download_resume():
-    return send_from_directory(directory='static', path="files/CV_Jose_Chay_Copy.pdf")
+    return send_from_directory(directory='static', path="files/CV_JoseChay_Copy.pdf")
 
 @app.route('/secret', methods=['GET', 'POST'])
 def secret_page():
     user_form = UserForm()
     if user_form.validate_on_submit():
 
-        #### I won't use create user function anymore, but I will let it here :D
+        ### I won't use create user function anymore, but I will let it here :D
         # create_admin(name=user_form.Name.data,
         #             email=user_form.Email.data,
         #             password=user_form.Password.data)
