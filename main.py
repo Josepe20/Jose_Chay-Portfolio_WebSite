@@ -1,10 +1,11 @@
 from BaseDatos import app, db
-from flask import render_template, redirect, url_for, request, send_from_directory
-from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
+from flask import render_template, redirect, url_for, request, send_from_directory, jsonify
+from flask_login import current_user, logout_user
 
 
-from Forms import UserForm, CreateProjectForm
-from BaseDatos import create_admin, login_admin, admin_only, create_project, Project, edit_project
+from Forms import UserForm, CreateProjectForm, Delete
+from BaseDatos import create_admin, login_admin, admin_only, create_project, Project, edit_project, delete_project, send_email
+from BaseDatos import USER_EMAIL, PASSWORD_EMAIL
 import datetime
 
 # with app.app_context():
@@ -20,6 +21,7 @@ def home_page():
 
     with app.app_context():
         all_projects = db.session.query(Project).all()
+
     return render_template("index.html", is_home=True, current_user=current_user, projects=all_projects)
 
 @app.route('/project-details')
@@ -30,7 +32,41 @@ def project_details_page():
     return render_template("project-details.html", is_home=False, current_user=current_user, project=requested_project)
 
 
-## Functionalities
+# ## Functionalities
+@app.route('/get_contact', methods=["POST"])
+def get_contact():
+    """This function rendering contact page & send information inserted in the contact form"""
+    if request.method == "POST":
+        try:
+            data = request.form
+
+            name_data = data.get('name')
+            email_data = data.get('email')
+            subject_data = data.get("subject")
+            message_data = data.get("message")
+
+            print(f"name: {name_data} "
+                  f"email: {email_data} "
+                  f"subject: {subject_data} "
+                  f"message: {message_data} ")
+
+            print(f'{PASSWORD_EMAIL} '
+                  f'{USER_EMAIL}')
+
+            send_email(name=name_data,
+                       email=email_data,
+                       subject=subject_data,
+                       message=message_data)
+
+            return {"response": {"success": "Email has been sent successfully."}}, 200
+
+        except Exception as error:
+            return {"response": {"error": "{}".format(error)}}
+
+    else:
+        return jsonify(error={"Method Not Allowed": "No post method"}), 405
+
+
 @app.route('/download')
 def download_resume():
     return send_from_directory(directory='static', path="files/CV_Jose_Chay_Copy.pdf")
@@ -78,6 +114,7 @@ def edit_project_page():
 
     project_id = request.args.get('project_id')
     project_to_edit = db.session.query(Project).get(project_id)
+
     edit_project_form = CreateProjectForm(
         title=project_to_edit.title,
         category=project_to_edit.category,
@@ -88,30 +125,28 @@ def edit_project_page():
         img_url_1=project_to_edit.img_url_1,
         img_url_2=project_to_edit.img_url_2,
         img_url_3=project_to_edit.img_url_3,
-        description=project_to_edit.description
+        description=project_to_edit.description,
     )
     if edit_project_form.validate_on_submit():
 
-        edit_project(project_to_edit=project_to_edit,
-                     edit_project_form=edit_project_form)
+        edit_project(project_to_edit=project_to_edit, edit_project_form=edit_project_form)
 
         return redirect(url_for('home_page'))
     return render_template("edit_project.html", form=edit_project_form, current_user=current_user)
 
-@app.route("/delete_page")
+@app.route("/delete_page", methods=['GET', 'POST'])
 @admin_only
 def delete_page():
     project_id = request.args.get('project_id')
-    return redirect(url_for('home_page'))
+    requested_project = db.session.query(Project).get(project_id)
+    delete_form = Delete()
+    if delete_form.validate_on_submit():
 
-@app.route("/delete")
-@admin_only
-def delete():
-    project_id = request.args.get('project_id')
-    project_to_delete = db.session.query(Project).get(project_id)
-    db.session.delete(project_to_delete)
-    db.session.commit()
-    return redirect(url_for('home_page'))
+        delete_project(project_id)
+
+        return redirect(url_for('home_page'))
+    return render_template('delete.html', form=delete_form,  current_user=current_user, project=requested_project)
+
 
 @app.route('/logout')
 @admin_only

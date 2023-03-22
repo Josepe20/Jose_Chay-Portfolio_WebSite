@@ -1,3 +1,4 @@
+import decouple
 from flask import Flask, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -5,9 +6,25 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
+from smtplib import SMTP
+import os
+import decouple
+
+
+# ## Environment Variables
+# USER_EMAIL = os.environ.get('MY_USER_EMAIL')
+# PASSWORD_EMAIL = os.environ.get('MY_PASSWORD_EMAIL')
+# EMAIL_FOR = os.environ.get('MY_EMAIL_FOR')
+# SECRET_KEY = os.environ.get('MY_SECRET_KEY')
+
+## Environment Variables
+USER_EMAIL = decouple.config('MY_USER_EMAIL')
+PASSWORD_EMAIL = decouple.config('MY_PASSWORD_EMAIL')
+EMAIL_FOR = decouple.config('MY_EMAIL_FOR')
+SECRET_KEY = decouple.config('MY_SECRET_KEY')
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = SECRET_KEY
 Bootstrap(app)
 ckeditor = CKEditor(app)
 
@@ -118,5 +135,28 @@ def edit_project(project_to_edit, edit_project_form):
     project_to_edit.description = edit_project_form.description.data
 
     db.session.commit()
+
+def delete_project(project_id):
+    project_to_delete = db.session.query(Project).get(project_id)
+    db.session.delete(project_to_delete)
+    db.session.commit()
+
+def send_email(name, email, subject, message):
+    """This function sent an email with contact information"""
+
+    email_message = f'Subject: {subject}\n\n'\
+                    f'Name: {name}\n'\
+                    f'Email: {email}\n\n'\
+                    f'Message: \n {message}.'
+
+    with SMTP("smtp.gmail.com",  port=587) as connection:
+        connection.starttls()
+        connection.login(user=USER_EMAIL, password=PASSWORD_EMAIL)
+        connection.sendmail(
+            from_addr=USER_EMAIL,
+            to_addrs=EMAIL_FOR,
+            msg=email_message,
+        )
+        connection.close()
 
 

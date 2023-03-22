@@ -1,0 +1,88 @@
+{% import "bootstrap/wtf.html" as wtf%} <!--- Import Forms from WTForms --->
+
+<!-- ======= Head, Header & Menu 'nav' ======= -->
+{% include "header.html" %}
+
+  <main id="main">
+
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h1>Delete Project</h1>
+          <ol>
+            <li><a href="{{ url_for('home_page') }}">Home</a></li>
+            <li>Delete Project</li>
+          </ol>
+        </div>
+
+      </div>
+
+   <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                {% if project.img_url_1:  %}
+                  <div class="swiper-slide">
+                    <img src="{{ project.img_url_1 }}" alt="">
+                  </div>
+                {% endif %}
+
+                {% if project.img_url_2:  %}
+                  <div class="swiper-slide">
+                    <img src="{{ project.img_url_2 }}" alt="">
+                  </div>
+                {% endif %}
+
+                {% if project.img_url_3:  %}
+                  <div class="swiper-slide">
+                    <img src="{{ project.img_url_3 }}" alt="">
+                  </div>
+                {% endif %}
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Title</strong>: {{ project.title }}</li>
+                <li><strong>Category</strong>: {{ project.category }}</li>
+                <li><strong>Client</strong>: {{ project.client }}</li>
+                <li><strong>Authors</strong>: {{ project.author}}</li>
+                <li><strong>Project date</strong>: {{ project.date }}</li>
+                <li><strong>Project URL</strong>: <a href="{{ project.project_url}}">{{ project.title }}</a></li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h2>Project Description</h2>
+              <p>
+                {{ project.description | safe }}
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+    <section>
+        <div>
+          {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+        </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+{% include "footer.html" %}
