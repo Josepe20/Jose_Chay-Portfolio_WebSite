@@ -1,2 +1,2 @@
-web: gunicorn BaseDatos:app
+web: gunicorn main:app
 
