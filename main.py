@@ -75,7 +75,7 @@ def download_resume():
 def secret_register():
     user_form = UserForm()
     if user_form.validate_on_submit():
-        if db.session.query(User).all() < 1:
+        if len(db.session.query(User).all()) < 1:
 
             create_admin(name=user_form.Name.data,
                         email=user_form.Email.data,
