@@ -5,7 +5,7 @@ from flask_login import current_user, logout_user
 
 from Forms import UserForm, CreateProjectForm, Delete
 from BaseDatos import create_admin, login_admin, admin_only, create_project, Project, edit_project, delete_project, send_email
-from BaseDatos import USER_EMAIL, PASSWORD_EMAIL
+from BaseDatos import USER_EMAIL, PASSWORD_EMAIL, User
 import datetime
 
 ## with app.app_context():
@@ -71,15 +71,23 @@ def get_contact():
 def download_resume():
     return send_from_directory(directory='static', path="files/CV_JoseChay_Copy.pdf")
 
-@app.route('/secret', methods=['GET', 'POST'])
-def secret_page():
+@app.route('/secret_register', methods=['GET', 'POST'])
+def secret_register():
     user_form = UserForm()
     if user_form.validate_on_submit():
+        if db.session.query(User).all() < 1:
 
-        ### I won't use create user function anymore, but I will let it here :D
-        # create_admin(name=user_form.Name.data,
-        #             email=user_form.Email.data,
-        #             password=user_form.Password.data)
+            create_admin(name=user_form.Name.data,
+                        email=user_form.Email.data,
+                        password=user_form.Password.data)
+
+            return redirect(url_for('home_page'))
+    return render_template("secret.html", form=user_form, current_user=current_user.is_authenticated)
+
+@app.route('/secret_login', methods=['GET', 'POST'])
+def secret_login():
+    user_form = UserForm()
+    if user_form.validate_on_submit():
 
         login_admin(name=user_form.Name.data,
                     email=user_form.Email.data,

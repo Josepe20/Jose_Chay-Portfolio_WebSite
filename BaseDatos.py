@@ -29,7 +29,9 @@ Bootstrap(app)
 ckeditor = CKEditor(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql:///portfolio.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = decouple.config('OWN_MYSQL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
