@@ -22,6 +22,7 @@ USER_EMAIL = decouple.config('MY_USER_EMAIL')
 PASSWORD_EMAIL = decouple.config('MY_PASSWORD_EMAIL')
 EMAIL_FOR = decouple.config('MY_EMAIL_FOR')
 SECRET_KEY = decouple.config('MY_SECRET_KEY')
+SQL_DATABASE_URI = decouple.config('OWN_MYSQL')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -30,8 +31,9 @@ ckeditor = CKEditor(app)
 
 # CONNECT TO DB
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql:///portfolio.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = decouple.config('OWN_MYSQL')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://portfolio.db'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = SQL_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
