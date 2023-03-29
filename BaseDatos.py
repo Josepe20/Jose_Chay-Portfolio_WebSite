@@ -31,7 +31,6 @@ ckeditor = CKEditor(app)
 
 # CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///portfolio.db'
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
@@ -42,6 +41,9 @@ def load_user(user_id):
 
 #Create admin-only decorator
 def admin_only(f):
+    """This function serves to limit access only to the admin to specific functions of the CRUD
+     such as Create, Update & Delete. being the admin the user of ID number 1"""
+
     @wraps(f)
     def decorated_function(*args, **kwargs):
         #If id is not 1 then return abort with 403 error
@@ -76,6 +78,9 @@ class Project(db.Model):
 
 
 def create_admin(name, email, password):
+    """This function encrypts the password by generating a hash password and salted,
+        then create the unique user, which is the admin user"""
+
     # hash and salt password
     hash_and_salted_password = generate_password_hash(
         password=password,
@@ -94,6 +99,8 @@ def create_admin(name, email, password):
 
 
 def login_admin(name, email, password):
+    """This function makes possible to log in the admin user. if username, email and password it's correct.
+        the password is decrypted and checked in order to log in"""
 
     # Find user by email entered.
     user = db.session.query(User).first()
@@ -106,6 +113,7 @@ def login_admin(name, email, password):
 
 def create_project(title, category, client, author, date, project_url,
                    img_url_1, img_url_2, img_url_3, description,):
+    """This function makes possible to create a new project in the database"""
 
     new_project = Project(
         title=title,
@@ -124,6 +132,7 @@ def create_project(title, category, client, author, date, project_url,
     db.session.commit()
 
 def edit_project(project_to_edit, edit_project_form):
+    """This function makes possible to edit a specific project by project object in the database"""
 
     project_to_edit.title = edit_project_form.title.data,
     project_to_edit.category = edit_project_form.category.data,
@@ -139,12 +148,14 @@ def edit_project(project_to_edit, edit_project_form):
     db.session.commit()
 
 def delete_project(project_id):
+    """This function makes possible to delete a specific project by ID in the database"""
+
     project_to_delete = db.session.query(Project).get(project_id)
     db.session.delete(project_to_delete)
     db.session.commit()
 
 def send_email(name, email, subject, message):
-    """This function sent an email with contact information"""
+    """This function makes possible to send an email with contact information"""
 
     email_message = f'Subject: {subject}\n\n'\
                     f'Name: {name}\n'\

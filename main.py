@@ -18,6 +18,7 @@ with app.app_context():
 ## Routes
 @app.route('/')
 def home_page():
+    """This function renders index.html & read projects objects from Project database"""
 
     with app.app_context():
         all_projects = db.session.query(Project).all()
@@ -26,6 +27,7 @@ def home_page():
 
 @app.route('/project-details')
 def project_details_page():
+    """This function renders projects-details.html from a specific project id"""
 
     project_id = request.args.get('project_id')
     requested_project = db.session.query(Project).get(project_id)
@@ -35,7 +37,8 @@ def project_details_page():
 # ## Functionalities
 @app.route('/get_contact', methods=["POST"])
 def get_contact():
-    """This function rendering contact page & send information inserted in the contact form"""
+    """This function sends information by email"""
+
     if request.method == "POST":
         try:
             data = request.form
@@ -69,10 +72,14 @@ def get_contact():
 
 @app.route('/download')
 def download_resume():
+    """This function display CV pdf in the browser"""
+
     return send_from_directory(directory='static', path="files/CV_JoseChay_Copy.pdf")
 
 @app.route('/secret_register', methods=['GET', 'POST'])
 def secret_register():
+    """This function allows creating a new user once"""
+
     user_form = UserForm()
     if user_form.validate_on_submit():
         if len(db.session.query(User).all()) < 1:
@@ -86,6 +93,8 @@ def secret_register():
 
 @app.route('/secret_login', methods=['GET', 'POST'])
 def secret_login():
+    """This function allows to log in the user admin"""
+
     user_form = UserForm()
     if user_form.validate_on_submit():
 
@@ -99,6 +108,8 @@ def secret_login():
 @app.route('/new_project', methods=['GET', 'POST'])
 @admin_only
 def create_project_page():
+    """This function allows creating a new project in the portfolio section"""
+
     new_project_form = CreateProjectForm()
     if new_project_form.validate_on_submit():
         create_project(
@@ -119,6 +130,7 @@ def create_project_page():
 @app.route('/edit', methods=['GET', 'POST'])
 @admin_only
 def edit_project_page():
+    """This function allows updating a specific project by ID in the portfolio section"""
 
     project_id = request.args.get('project_id')
     project_to_edit = db.session.query(Project).get(project_id)
@@ -145,6 +157,8 @@ def edit_project_page():
 @app.route("/delete_page", methods=['GET', 'POST'])
 @admin_only
 def delete_page():
+    """This function allows deleting a specific project by ID in the portfolio section"""
+
     project_id = request.args.get('project_id')
     requested_project = db.session.query(Project).get(project_id)
     delete_form = Delete()
@@ -159,6 +173,8 @@ def delete_page():
 @app.route('/logout')
 @admin_only
 def logout():
+    """This function allows admin user to log out"""
+
     logout_user()
     return redirect(url_for('home_page'))
 
