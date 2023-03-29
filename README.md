@@ -18,7 +18,7 @@ Beautiful Full-Stack project created to enhance my personal brand through a port
 * SQLAlchemy
 *  And many more
 
-##Project features
+## Project features
 * Responsive Web Technology
 * Database CRUD about projects
 * Authorization and Authentication
