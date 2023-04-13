@@ -6,19 +6,18 @@ Beautiful Full-Stack project created to enhance my personal brand through a port
 ## Developed with technologies such as:
 
 > Frontent
-* HTML5
-* CSS3
-* javascript
-* Bootstrap
+> - HTML5
+> - CSS3
+> - javascript
+> - Bootstrap
 
 > Backend
-* Python
-* Flask
-* SQLite3
-* SQLAlchemy
-*  And many more
+> - Python
+> - Flask
+> - SQLite3
+> - SQLAlchemy
 
-##Project features
+### Project features
 * Responsive Web Technology
 * Database CRUD about projects
 * Authorization and Authentication
