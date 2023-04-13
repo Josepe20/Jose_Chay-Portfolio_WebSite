@@ -127,7 +127,7 @@ def create_project_page():
         return redirect(url_for('home_page'))
     return render_template("new_project.html", form=new_project_form, current_user=current_user)
 
-@app.route('/edit', methods=['GET', 'POST'])
+@app.route('/edit', methods=['GET', 'PUT'])
 @admin_only
 def edit_project_page():
     """This function allows updating a specific project by ID in the portfolio section"""
